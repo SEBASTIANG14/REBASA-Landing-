@@ -12,6 +12,10 @@
   --color-rebasa-card-border: #1a4252;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--color-rebasa-bg-dark);
   color: white;

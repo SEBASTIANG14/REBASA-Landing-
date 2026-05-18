@@ -6,13 +6,11 @@ export default function Footer() {
           REBASA
         </div>
         <div className="flex flex-wrap justify-center gap-8 text-[11px] font-bold tracking-widest uppercase text-gray-400">
-          <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-          <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-          <a href="#" className="hover:text-white transition-colors">Compliance</a>
-          <a href="#" className="hover:text-white transition-colors">Sustainability</a>
+          <a href="#" className="hover:text-white transition-colors">Aviso de Privacidad</a>
+          <a href="#" className="hover:text-white transition-colors">Términos y Condiciones</a>
         </div>
         <div className="text-gray-500 text-xs font-medium">
-          © 2024 REBASA Diseño y Construcciones. All rights reserved.
+          © {new Date().getFullYear()} REBASA Diseño y Construcciones. Todos los derechos reservados.
         </div>
       </div>
     </footer>
