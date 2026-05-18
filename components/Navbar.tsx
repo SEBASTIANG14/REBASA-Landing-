@@ -10,17 +10,12 @@ export default function Navbar() {
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious() ?? 0;
-    
-    // Siempre mostrar si estamos muy cerca del tope
+
     if (latest < 50) {
       setIsVisible(true);
-    } 
-    // Ocultar si hacemos scroll hacia abajo
-    else if (latest > previous && latest > 50) {
+    } else if (latest > previous && latest > 50) {
       setIsVisible(false);
-    } 
-    // Mostrar si hacemos scroll hacia arriba
-    else if (latest < previous) {
+    } else if (latest < previous) {
       setIsVisible(true);
     }
   });
@@ -29,40 +24,60 @@ export default function Navbar() {
     e.preventDefault();
     const element = document.getElementById(id);
     if (element) {
-      // Get the navbar height (approx 80px) to offset the scroll so the navbar doesn't cover the title
-      const y = element.getBoundingClientRect().top + window.scrollY - 100;
+      const y = element.getBoundingClientRect().top + window.scrollY - 120;
       window.scrollTo({ top: y, behavior: "smooth" });
     }
   };
 
   return (
-    <motion.div 
+    <motion.header
       initial={{ y: 0, x: "-50%" }}
       animate={{ y: isVisible ? 0 : -150, x: "-50%" }}
-      transition={{ duration: 0.3, ease: "easeInOut" }}
-      className="fixed top-6 left-1/2 w-[95%] max-w-5xl bg-rebasa-bg-card/95 backdrop-blur-md rounded-full px-6 py-3 shadow-2xl shadow-black/40 z-50 flex items-center justify-between border border-rebasa-card-border/50"
+      transition={{ duration: 0.4, ease: "easeInOut" }}
+      className="fixed top-6 md:top-8 left-1/2 w-[95%] max-w-5xl z-50 rounded-none"
     >
-      <div className="flex items-center">
-        <Image
-          src="/images/Original.png"
-          alt="REBASA"
-          width={340}
-          height={166}
-          className="h-16 md:h-[42px] w-auto object-contain"
-          priority
-        />
+      <div className="flex items-center justify-between bg-rebasa-bg-dark/95 backdrop-blur-md border border-rebasa-card-border shadow-[8px_8px_0_0_rgba(20,53,66,0.8)] h-[64px] md:h-[64px]">
+
+        {/* Left: Logo (Boxed and maximized) */}
+        <div className="h-full flex items-center justify-center px-4 md:px-6 border-r border-rebasa-card-border bg-rebasa-bg-card/50">
+          <Image
+            src="/images/Original.png"
+            alt="REBASA"
+            width={340}
+            height={166}
+            className="h-[50px] md:h-[70px] w-auto object-contain"
+            priority
+          />
+        </div>
+
+        {/* Center: Navigation (Symmetric) */}
+        <nav className="hidden lg:flex flex-1 items-center justify-center gap-10 h-full">
+          <a href="#inicio" onClick={(e) => handleScroll(e, "inicio")} className="text-[11px] font-heading tracking-[0.25em] text-gray-300 uppercase hover:text-rebasa-green transition-colors relative group">
+            Inicio
+            <span className="absolute -bottom-2 left-0 w-full h-[2px] bg-rebasa-green scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
+          </a>
+          <a href="#nosotros" onClick={(e) => handleScroll(e, "nosotros")} className="text-[11px] font-heading tracking-[0.25em] text-gray-300 uppercase hover:text-rebasa-green transition-colors relative group">
+            Nosotros
+            <span className="absolute -bottom-2 left-0 w-full h-[2px] bg-rebasa-green scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
+          </a>
+          <a href="#servicios" onClick={(e) => handleScroll(e, "servicios")} className="text-[11px] font-heading tracking-[0.25em] text-gray-300 uppercase hover:text-rebasa-green transition-colors relative group">
+            Servicios
+            <span className="absolute -bottom-2 left-0 w-full h-[2px] bg-rebasa-green scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
+          </a>
+          <a href="#proyectos" onClick={(e) => handleScroll(e, "proyectos")} className="text-[11px] font-heading tracking-[0.25em] text-gray-300 uppercase hover:text-rebasa-green transition-colors relative group">
+            Proyectos
+            <span className="absolute -bottom-2 left-0 w-full h-[2px] bg-rebasa-green scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
+          </a>
+        </nav>
+
+        {/* Right: Contact Button (Boxed) */}
+        <div className="h-full flex items-center justify-center">
+          <a href="#contacto" onClick={(e) => handleScroll(e, "contacto")} className="h-full flex items-center px-6 md:px-8 bg-rebasa-green text-black text-[11px] md:text-xs font-heading font-bold tracking-[0.2em] uppercase hover:bg-rebasa-green-hover transition-colors border-l border-rebasa-card-border cursor-pointer">
+            Contacto
+          </a>
+        </div>
+
       </div>
-      <nav className="hidden md:flex items-center gap-8 text-[11px] font-bold tracking-widest text-gray-300 uppercase">
-        <a href="#inicio" onClick={(e) => handleScroll(e, "inicio")} className="hover:text-rebasa-green transition-colors">Inicio</a>
-        <a href="#nosotros" onClick={(e) => handleScroll(e, "nosotros")} className="hover:text-rebasa-green transition-colors">Nosotros</a>
-        <a href="#servicios" onClick={(e) => handleScroll(e, "servicios")} className="hover:text-rebasa-green transition-colors">Servicios</a>
-        <a href="#proyectos" onClick={(e) => handleScroll(e, "proyectos")} className="hover:text-rebasa-green transition-colors">Proyectos</a>
-      </nav>
-      <div className="hidden md:block">
-        <a href="#contacto" onClick={(e) => handleScroll(e, "contacto")} className="bg-rebasa-green text-black px-6 py-2.5 rounded-full text-[11px] font-bold tracking-widest uppercase hover:bg-rebasa-green-hover transition-colors shadow-lg shadow-rebasa-green/20">
-          Contacto
-        </a>
-      </div>
-    </motion.div>
+    </motion.header>
   );
 }
